@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <!-- ELEMENT FORM START -->
+    <form id="form">
+        <input type="file" name="file" /><br />
+        <input type="submit" value="submit" />
+    </form>
+    <!-- ELEMENT FORM END -->
+
+    <!-- ELEMENT PRE UNTUK MENAMPILKAN JSON hasil dari post -->
+    <pre id="pre" style="background-color: black; color: azure; padding: 10px 10px 10px 10px ;"></pre>
+    <!-- ELEMENT A berisi gambar hasil post, klik untuk mengakses url hasil upload -->
+    <a href="#" id="link" target="_blank">
+        <!-- PREVIEW tampilan hasil upload -->
+        <img src="" alt="" id="img" style="display: none; max-width: 100px;">
+    </a>
+
+    <script>
+
+        const form = document.querySelector('#form') // element upload
+
+        // listen element saat menerima submit
+        form.addEventListener('submit', async(e) => {
+            
+            e.preventDefault() // prevent post karena menggunakan metode ajax agar tanpa reload halaman bisa melakukan aksi
+
+            const formData = new FormData(form) // buat FormData dari element form
+            
+            if ( formData.get('file').size > 10000000 ) return alert('Max size is 10Mb') // limit maksimal upload 10MB
+            if ( formData.get('file').size == 0 ) return alert('No file uploaded') // cegah post jika tidak ada file yang diupload
+            
+            const req = await fetch('/', {method: 'POST', body: formData}) // request berupa post. Lebih detail lihat index.js line 42
+            const res = await req.json() // result berupa json. Lebih detail lihat index.js line 47
+
+            // Manipulasi DOM berdasarkan res
+            document.querySelector('#pre').innerHTML = JSON.stringify(res, undefined, 2)
+            document.querySelector('#link').href = res.path
+            document.querySelector('#img').src = res.path
+            document.querySelector('#img').alt = res.file.originalname
+            document.querySelector('#img').style = 'display: block; max-width: 200px'
+        })
+
+    </script>
+    
+</body>
+</html>

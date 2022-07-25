@@ -1,0 +1,27 @@
+{
+  "dependencies": {
+    "express": "^4.18.1",
+    "multer": "^1.4.5-lts.1"
+  },
+  "name": "penggunaan-multer",
+  "version": "1.0.0",
+  "description": "belajar menggunakan multer pada express",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index"
+  },
+  "keywords": [
+    "multer",
+    "express",
+    "upload",
+    "image",
+    "multer",
+    "upload",
+    "multer",
+    "image"
+  ],
+  "author": "tofik nuryanto",
+  "license": "MIT"
+}
